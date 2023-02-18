@@ -2,7 +2,6 @@ const { Contact } = require("../db/contactModel.js");
 
 const listContacts = async () => {
   const contacts = await Contact.find({});
-  console.log(contacts);
   return contacts;
 };
 
@@ -15,19 +14,10 @@ const removeContact = async (id) => {
   await Contact.findByIdAndRemove(id);
 };
 
-// const addContact = async ({ name, email, phone }) => {
-//   const newContact = {
-//     id: shortid.generate(),
-//     name,
-//     email,
-//     phone,
-//   };
-
-//   const contacts = await listContacts();
-//   contacts.push(newContact);
-//   await fs.writeFile(contactsPath, JSON.stringify(contacts));
-//   return newContact;
-// };
+const addContact = async ({ name, email, phone, favorite }) => {
+  const contact = await new Contact({ name, email, phone, favorite });
+  await contact.save();
+};
 
 // const updateContact = async (contactId, { name, email, phone }) => {
 //   const contacts = await listContacts();
@@ -43,6 +33,6 @@ module.exports = {
   listContacts,
   getContactById,
   removeContact,
-  // addContact,
+  addContact,
   // updateContact,
 };
