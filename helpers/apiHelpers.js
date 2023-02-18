@@ -1,0 +1,22 @@
+const { ValidationError, WrongsParametersError } = require("./errors");
+
+const asyncWrapper = (controller) => {
+  return (req, res, next) => {
+    controller(req, res).catch(next);
+  };
+};
+
+const errorHandler = (error, req, res, next) => {
+  if (
+    error instanceof ValidationError ||
+    error instanceof WrongsParametersError
+  ) {
+    return res.status(error.status).json({ message: "fuck" });
+  }
+  res.status(500).json({ message: error.message });
+};
+
+module.exports = {
+  asyncWrapper,
+  errorHandler,
+};
