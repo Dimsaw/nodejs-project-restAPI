@@ -15,16 +15,13 @@ const getContactsController = async (req, res, next) => {
   }
 };
 
-const getContactByIdController = async (req, res, next) => {
-  try {
-    const contactById = await getContactById(req.params.contactId);
-    if (!contactById) {
-      return res.status(404).json({ message: "Not found" });
-    }
-    res.json({ contactById, message: "success" });
-  } catch (error) {
-    next(error);
+const getContactByIdController = async (req, res) => {
+  const { id } = req.params;
+  const contactById = await getContactById(id);
+  if (!contactById) {
+    return res.status(404).json({ message: "Not found" });
   }
+  res.json({ contactById, message: "success" });
 };
 
 const postContactController = async (req, res, next) => {
@@ -38,13 +35,13 @@ const postContactController = async (req, res, next) => {
 
 const deleteContactController = async (req, res, next) => {
   try {
-    const { contactId } = req.params;
-    const contact = await getContactById(contactId);
+    const { id } = req.params;
+    const contact = await removeContact(id);
+    console.log(contact);
 
     if (!contact) {
       return res.status(404).json({ message: "Not found" });
     }
-    await removeContact(contactId);
     res.status(200).json({ message: "contact deleted" });
   } catch (error) {
     next(error);

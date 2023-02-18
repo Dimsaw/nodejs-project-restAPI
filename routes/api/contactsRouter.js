@@ -14,14 +14,14 @@ const {
 
 router.get("/", getContactsController);
 
-router.get("/:contactId", getContactByIdController);
+router.get("/:id", getContactByIdController);
 
 router.post("/", addValidation, postContactController);
 
-router.delete("/:contactId", deleteContactController);
+router.delete("/:id", deleteContactController);
 
-router.put("/:contactId", addValidation, putContactController);
+router.put("/:id", addValidation, putContactController);
 
-router.patch("/:contactId", addValidation, patchContactController);
+router.patch("/:id", addValidation, patchContactController);
 
 module.exports = router;
