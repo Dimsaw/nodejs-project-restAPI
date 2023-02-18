@@ -10,8 +10,14 @@ class WrongsParametersError extends Error {
   constructor(message) {
     super(message);
 
-    this.status = 400;
+    this.status = 404;
   }
 }
 
-module.exports = { ValidationError, WrongsParametersError };
+const checkContactById = (contactById) => {
+  if (!contactById) {
+    throw new WrongsParametersError({ message: "Not found" });
+  }
+};
+
+module.exports = { ValidationError, WrongsParametersError, checkContactById };
