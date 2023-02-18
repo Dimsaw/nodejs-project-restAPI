@@ -19,20 +19,23 @@ const addContact = async ({ name, email, phone, favorite }) => {
   await contact.save();
 };
 
-// const updateContact = async (contactId, { name, email, phone }) => {
-//   const contacts = await listContacts();
-//   const contact = contacts.find((contact) => contact.id === contactId);
-//   contact.name = name;
-//   contact.email = email;
-//   contact.phone = phone;
+const updateContact = async (id, { name, email, phone, favorite }) => {
+  await Contact.findByIdAndUpdate(id, {
+    $set: { name, email, phone, favorite },
+  });
+};
 
-//   await fs.writeFile(contactsPath, JSON.stringify(contacts));
-//   return contact;
-// };
+const patchContact = async (id, { favorite }) => {
+  await Contact.findByIdAndUpdate(id, {
+    $set: { favorite },
+  });
+};
+
 module.exports = {
   listContacts,
   getContactById,
   removeContact,
   addContact,
-  // updateContact,
+  updateContact,
+  patchContact,
 };
