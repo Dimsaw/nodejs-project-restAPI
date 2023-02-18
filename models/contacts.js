@@ -25,10 +25,12 @@ const updateContact = async (id, { name, email, phone, favorite }) => {
   });
 };
 
-const patchContact = async ({ name, email, phone, favorite }) => {
-  const contact = await new Contact({ name, email, phone, favorite });
-  await contact.save();
+const patchContact = async (id, { favorite }) => {
+  await Contact.findByIdAndUpdate(id, {
+    $set: { favorite },
+  });
 };
+
 module.exports = {
   listContacts,
   getContactById,

@@ -71,6 +71,10 @@ const putContactController = async (req, res, next) => {
 const patchContactController = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const contact = await getContactById(id);
+    if (!contact) {
+      return res.status(404).json({ message: "Not found" });
+    }
     const result = await patchContact(id, req.body);
     res.status(200).json({ result, message: "success" });
   } catch (error) {
