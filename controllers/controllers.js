@@ -4,6 +4,7 @@ const {
   removeContact,
   addContact,
   updateContact,
+  patchContact,
 } = require("../models/contacts");
 
 const getContactsController = async (req, res, next) => {
@@ -15,13 +16,17 @@ const getContactsController = async (req, res, next) => {
   }
 };
 
-const getContactByIdController = async (req, res) => {
-  const { id } = req.params;
-  const contactById = await getContactById(id);
-  if (!contactById) {
-    return res.status(404).json({ message: "Not found" });
+const getContactByIdController = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const contactById = await getContactById(id);
+    if (!contactById) {
+      return res.status(404).json({ message: "Not found" });
+    }
+    res.json({ contactById, message: "success" });
+  } catch (error) {
+    next(error);
   }
-  res.json({ contactById, message: "success" });
 };
 
 const postContactController = async (req, res, next) => {
@@ -36,13 +41,12 @@ const postContactController = async (req, res, next) => {
 const deleteContactController = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const contact = await removeContact(id);
-    console.log(contact);
-
-    if (!contact) {
+    const contactById = await getContactById(id);
+    if (!contactById) {
       return res.status(404).json({ message: "Not found" });
     }
-    res.status(200).json({ message: "contact deleted" });
+    await removeContact(id);
+    res.status(200).json({ message: "success" });
   } catch (error) {
     next(error);
   }
@@ -50,13 +54,13 @@ const deleteContactController = async (req, res, next) => {
 
 const putContactController = async (req, res, next) => {
   try {
-    const { contactId } = req.params;
-    const contact = await getContactById(contactId);
+    const { id } = req.params;
+    const contact = await getContactById(id);
 
     if (!contact) {
       return res.status(404).json({ message: "Not found" });
     }
-    const result = await updateContact(contactId, req.body);
+    const result = await updateContact(id, req.body);
 
     res.status(200).json({ result, message: "success" });
   } catch (error) {
@@ -66,14 +70,8 @@ const putContactController = async (req, res, next) => {
 
 const patchContactController = async (req, res, next) => {
   try {
-    const { contactId } = req.params;
-    const contact = await getContactById(contactId);
-
-    if (!contact) {
-      return res.status(404).json({ message: "Not found" });
-    }
-    const result = await updateContact(contactId, req.body);
-
+    const { id } = req.params;
+    const result = await patchContact(id, req.body);
     res.status(200).json({ result, message: "success" });
   } catch (error) {
     next(error);
