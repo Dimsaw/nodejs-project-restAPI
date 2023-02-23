@@ -13,7 +13,7 @@ const {
   currentController,
 } = require("../../controllers/usersController");
 
-router.post("/signup", addValidation, asyncWrapper(signupController));
+router.post("/signup", asyncWrapper(signupController));
 
 router.post("/login", asyncWrapper(loginController));
 

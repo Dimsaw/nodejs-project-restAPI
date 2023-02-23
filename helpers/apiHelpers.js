@@ -1,4 +1,4 @@
-const { ValidationError, WrongsParametersError } = require("./errors");
+const { checkError } = require("./errors");
 
 const asyncWrapper = (controller) => {
   return (req, res, next) => {
@@ -7,13 +7,11 @@ const asyncWrapper = (controller) => {
 };
 
 const errorHandler = (error, req, res, next) => {
-  if (error instanceof ValidationError) {
+  if (error instanceof checkError) {
     return res.status(error.status).json({ message: error.message });
-  } else if (error instanceof WrongsParametersError) {
-    return res.status(error.status).json({ message: "Not found" });
   }
 
-  res.status(500).json({ message: error.message });
+  res.status(500).json({ message: "fuck" });
 };
 
 module.exports = {

@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { ValidationError } = "../helpers/errors.js";
 
 const addValidation = (req, res, next) => {
   const schema = Joi.object({
@@ -15,7 +16,7 @@ const addValidation = (req, res, next) => {
 
   const validationResult = schema.validate(req.body);
   if (validationResult.error) {
-    return res.status(400).json({ message: "missing required name field" });
+    next(new ValidationError(JSON.stringify(validationResult.error.details)));
   }
   next();
 };
@@ -27,7 +28,7 @@ const patchValidation = (req, res, next) => {
 
   const validationResult = schema.validate(req.body);
   if (validationResult.error) {
-    return res.status(400).json({ message: "missing field favorite" });
+    next(new ValidationError(JSON.stringify(validationResult.error.details)));
   }
   next();
 };
