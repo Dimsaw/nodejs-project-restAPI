@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const { addValidation } = require("../../middlewares/validationMiddleware");
+const { loginValidation } = require("../../middlewares/usersMiddleware");
 
 const { asyncWrapper } = require("../../helpers/apiHelpers");
 
@@ -13,11 +13,11 @@ const {
   currentController,
 } = require("../../controllers/usersController");
 
-router.post("/signup", asyncWrapper(signupController));
+router.post("/signup", loginValidation, asyncWrapper(signupController));
 
-router.post("/login", asyncWrapper(loginController));
+router.post("/login", loginValidation, asyncWrapper(loginController));
 
-router.post("/logout", addValidation, asyncWrapper(logoutController));
+router.post("/logout", asyncWrapper(logoutController));
 
 router.get("/current", asyncWrapper(currentController));
 

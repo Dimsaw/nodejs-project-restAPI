@@ -10,11 +10,9 @@ const signupController = async (req, res, next) => {
 };
 
 const loginController = async (req, res) => {
-  console.log(req.body);
   const { email, password } = req.body;
-  await login(email, password);
-
-  res.json({ status: "success" });
+  const token = await login(email, password);
+  res.json({ status: "success", token });
 };
 
 const logoutController = async (req, res, next) => {
