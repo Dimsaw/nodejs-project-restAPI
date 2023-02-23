@@ -19,6 +19,6 @@ router.post("/login", loginValidation, asyncWrapper(loginController));
 
 router.post("/logout", asyncWrapper(logoutController));
 
-router.get("/current", asyncWrapper(currentController));
+router.post("/current", asyncWrapper(currentController));
 
 module.exports = router;

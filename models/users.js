@@ -18,6 +18,7 @@ const signup = async (email, password) => {
 
 const login = async (email, password) => {
   const user = await User.findOne({ email });
+  console.log(user);
   if (!user) {
     throw new NotAuthorizedError("Email or password is wrong");
   }
@@ -35,7 +36,16 @@ const login = async (email, password) => {
   return token;
 };
 
+const current = async (email, password) => {
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new NotAuthorizedError("Email or password is wrong");
+  }
+  return user;
+};
+
 module.exports = {
   signup,
   login,
+  current,
 };

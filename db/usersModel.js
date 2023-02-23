@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+
 // const { ThisEmailRegistrated } = require("../helpers/apiHelpers");
 
 const userSchema = new mongoose.Schema({

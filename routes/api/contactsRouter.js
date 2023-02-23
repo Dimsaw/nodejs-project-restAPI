@@ -17,6 +17,9 @@ const {
   putContactController,
   patchContactController,
 } = require("../../controllers/contactsControllers.js");
+const { authMiddleware } = require("../../middlewares/authMiddleware");
+
+router.use(authMiddleware);
 
 router.get("/", asyncWrapper(getContactsController));
 
