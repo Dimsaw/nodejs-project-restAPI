@@ -1,8 +1,6 @@
-const { signup, login, current } = require("../models/users");
+const { signup, login } = require("../models/users");
 
 const signupController = async (req, res, next) => {
-  //   const { email, password } = req.body;
-  console.log(req.body);
   const { email, password } = req.body;
   await signup(email, password);
 
@@ -17,9 +15,9 @@ const signupController = async (req, res, next) => {
 
 const loginController = async (req, res) => {
   const { email, password } = req.body;
-  console.log(res.body);
-  const token = await login(email, password);
-  await res.json({ status: "success", token });
+  const userInfo = await login(email, password);
+  const { token, subscription } = userInfo;
+  await res.json({ status: "success", token, user: { email, subscription } });
 };
 
 const logoutController = async (req, res, next) => {
@@ -27,10 +25,10 @@ const logoutController = async (req, res, next) => {
 };
 
 const currentController = async (req, res, next) => {
-  const { email, password } = req.body;
-  const user = await current(email, password);
-  const token = await loginController();
-  await res.json({ status: "success", user, token });
+  const { email } = req.user;
+  //   const user = await current(email);
+
+  await res.json({ status: "success", email });
 };
 
 module.exports = {

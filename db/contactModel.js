@@ -21,7 +21,13 @@ const contactSchema = new mongoose.Schema({
   },
 });
 
-const Contact = mongoose.model("Contact", contactSchema);
+contactSchema.post("save", (error, data, next) => {
+  const { name, code } = error;
+  error.status = name === "MongoServerError" && code === 11000 ? 409 : 400;
+  next();
+});
+
+const Contact = mongoose.model("contact", contactSchema);
 
 module.exports = {
   Contact,

@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const { loginValidation } = require("../../middlewares/usersMiddleware");
+const { authMiddleware } = require("../../middlewares/authMiddleware");
 
 const { asyncWrapper } = require("../../helpers/apiHelpers");
 
@@ -19,6 +20,6 @@ router.post("/login", loginValidation, asyncWrapper(loginController));
 
 router.post("/logout", asyncWrapper(logoutController));
 
-router.post("/current", asyncWrapper(currentController));
+router.get("/current", authMiddleware, asyncWrapper(currentController));
 
 module.exports = router;

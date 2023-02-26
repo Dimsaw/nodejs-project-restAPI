@@ -18,25 +18,25 @@ const signup = async (email, password) => {
 
 const login = async (email, password) => {
   const user = await User.findOne({ email });
-  console.log(user);
   if (!user) {
     throw new NotAuthorizedError("Email or password is wrong");
   }
   if (!(await bcrypt.compare(password, user.password))) {
     throw new NotAuthorizedError("Email or password is wrong");
   }
+  const { subscription } = user;
+  console.log("dsvdfvdf", subscription);
 
   const token = jwt.sign(
     {
-      _id: user.id,
-      createdAt: user.createdAt,
+      id: user._id,
     },
     process.env.JWT_SECRET
   );
-  return token;
+  return { token, subscription };
 };
 
-const current = async (email, password) => {
+const current = async (email) => {
   const user = await User.findOne({ email });
   if (!user) {
     throw new NotAuthorizedError("Email or password is wrong");
