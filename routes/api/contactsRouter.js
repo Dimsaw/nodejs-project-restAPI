@@ -7,6 +7,8 @@ const {
   patchValidation,
 } = require("../../middlewares/validationMiddleware");
 
+const { authMiddleware } = require("../../middlewares/authMiddleware");
+
 const { asyncWrapper } = require("../../helpers/apiHelpers");
 
 const {
@@ -16,7 +18,9 @@ const {
   deleteContactController,
   putContactController,
   patchContactController,
-} = require("../../controllers/controllers.js");
+} = require("../../controllers/contactsControllers.js");
+
+router.use(authMiddleware);
 
 router.get("/", asyncWrapper(getContactsController));
 

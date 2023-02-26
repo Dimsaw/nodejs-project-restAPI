@@ -7,23 +7,31 @@ const {
   patchContact,
 } = require("../models/contacts");
 
-const { checkContactById } = require("../helpers/errors");
+const { checkContactById } = require("../helpers/checkById");
 
-const getContactsController = async (req, res, next) => {
-  const contacts = await listContacts();
-  res.status(200).json({ contacts });
+const getContactsController = async (req, res) => {
+  const { _id: owner } = req.user;
+  const { page = 1, limit = 5, favorite = "" } = req.query;
+  const skip = (page - 1) * limit;
+
+  const result = await listContacts(owner, favorite, skip, limit);
+
+  res.json(result);
 };
 
 const getContactByIdController = async (req, res, next) => {
   const { id } = req.params;
   const contactById = await getContactById(id);
+  console.log(contactById);
   await checkContactById(contactById);
   res.json({ contactById, message: "success" });
 };
 
-const postContactController = async (req, res, next) => {
-  const contact = await addContact(req.body);
-  res.status(201).json({ contact, message: "success" });
+const postContactController = async (req, res) => {
+  console.log("renvdfbvfdbvfdbvd", req.user);
+  const { _id: owner } = req.user;
+  const contact = await addContact({ ...req.body, owner });
+  res.status(201).json({ message: "success", contact });
 };
 
 const deleteContactController = async (req, res, next) => {

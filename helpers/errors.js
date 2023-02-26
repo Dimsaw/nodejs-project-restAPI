@@ -1,4 +1,4 @@
-class ValidationError extends Error {
+class checkError extends Error {
   constructor(message) {
     super(message);
 
@@ -6,7 +6,15 @@ class ValidationError extends Error {
   }
 }
 
-class WrongsParametersError extends Error {
+class ValidationError extends checkError {
+  constructor(message) {
+    super(message);
+
+    this.status = 400;
+  }
+}
+
+class WrongsParametersError extends checkError {
   constructor(message) {
     super(message);
 
@@ -14,10 +22,26 @@ class WrongsParametersError extends Error {
   }
 }
 
-const checkContactById = (contactById) => {
-  if (!contactById) {
-    throw new WrongsParametersError({ message: "Not found" });
-  }
-};
+class NotAuthorizedError extends checkError {
+  constructor(message) {
+    super(message);
 
-module.exports = { ValidationError, WrongsParametersError, checkContactById };
+    this.status = 401;
+  }
+}
+
+class ThisEmailRegistrated extends checkError {
+  constructor(message) {
+    super(message);
+
+    this.status = 409;
+  }
+}
+
+module.exports = {
+  ValidationError,
+  WrongsParametersError,
+  NotAuthorizedError,
+  ThisEmailRegistrated,
+  checkError,
+};
