@@ -38,17 +38,10 @@ class ThisEmailRegistrated extends checkError {
   }
 }
 
-const checkContactById = (contactById) => {
-  if (!contactById) {
-    throw new WrongsParametersError("Not found");
-  }
-};
-
 module.exports = {
   ValidationError,
   WrongsParametersError,
   NotAuthorizedError,
-  checkError,
   ThisEmailRegistrated,
-  checkContactById,
+  checkError,
 };

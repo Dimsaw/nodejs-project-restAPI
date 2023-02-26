@@ -16,7 +16,7 @@ const addValidation = (req, res, next) => {
 
   const validationResult = schema.validate(req.body);
   if (validationResult.error) {
-    next(new ValidationError(JSON.stringify(validationResult.error.details)));
+    return res.status(400).json({ message: "you need to fill in all fields" });
   }
   next();
 };

@@ -20,14 +20,10 @@ const loginController = async (req, res) => {
   await res.json({ status: "success", token, user: { email, subscription } });
 };
 
-const logoutController = async (req, res, next) => {
-  console.log(req.body);
-};
+const logoutController = async (req, res, next) => {};
 
 const currentController = async (req, res, next) => {
   const { email } = req.user;
-  //   const user = await current(email);
-
   await res.json({ status: "success", email });
 };
 

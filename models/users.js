@@ -25,7 +25,6 @@ const login = async (email, password) => {
     throw new NotAuthorizedError("Email or password is wrong");
   }
   const { subscription } = user;
-  console.log("dsvdfvdf", subscription);
 
   const token = jwt.sign(
     {
@@ -36,16 +35,7 @@ const login = async (email, password) => {
   return { token, subscription };
 };
 
-const current = async (email) => {
-  const user = await User.findOne({ email });
-  if (!user) {
-    throw new NotAuthorizedError("Email or password is wrong");
-  }
-  return user;
-};
-
 module.exports = {
   signup,
   login,
-  current,
 };

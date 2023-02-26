@@ -1,8 +1,21 @@
-const { Contact } = require("../db/contactModel.js");
+const { Contact } = require("../db/contactModel");
 
-const listContacts = async (_id) => {
-  const contacts = await Contact.find({ owner: _id });
-  return contacts;
+const listContacts = async (owner, favorite, skip, limit) => {
+  if (favorite === "") {
+    const result = await Contact.find({ owner }, "-createdAt -updatedAt", {
+      skip,
+      limit,
+    }).populate("owner", "name email");
+    return result;
+  }
+
+  const result = await Contact.find({ owner }, "-createdAt -updatedAt", {
+    skip,
+    limit,
+  })
+    .populate("owner", "name email")
+    .find({ favorite: { $eq: favorite } });
+  return result;
 };
 
 const getContactById = async (id) => {
