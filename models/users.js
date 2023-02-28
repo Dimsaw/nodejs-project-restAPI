@@ -35,7 +35,13 @@ const login = async (email, password) => {
   return { token, subscription };
 };
 
+const logout = (_id) => {
+  const user = User.findByIdAndUpdate(_id, { token: null });
+  return user;
+};
+
 module.exports = {
   signup,
   login,
+  logout,
 };

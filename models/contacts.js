@@ -39,9 +39,9 @@ const updateContact = async (id, { name, email, phone, favorite }) => {
   });
 };
 
-const patchContact = async (id, { favorite }) => {
+const patchContact = async (id, { favorite, subscription }) => {
   await Contact.findByIdAndUpdate(id, {
-    $set: { favorite },
+    $set: { favorite, subscription },
   });
 };
 

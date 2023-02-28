@@ -11,7 +11,7 @@ const { checkContactById } = require("../helpers/checkById");
 
 const getContactsController = async (req, res) => {
   const { _id: owner } = req.user;
-  const { page = 1, limit = 5, favorite = "" } = req.query;
+  const { page = 1, limit = 20, favorite = "" } = req.query;
   const skip = (page - 1) * limit;
 
   const result = await listContacts(owner, favorite, skip, limit);
@@ -28,7 +28,6 @@ const getContactByIdController = async (req, res, next) => {
 };
 
 const postContactController = async (req, res) => {
-  console.log("renvdfbvfdbvfdbvd", req.user);
   const { _id: owner } = req.user;
   const contact = await addContact({ ...req.body, owner });
   res.status(201).json({ message: "success", contact });

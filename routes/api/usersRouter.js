@@ -18,7 +18,7 @@ router.post("/signup", loginValidation, asyncWrapper(signupController));
 
 router.post("/login", loginValidation, asyncWrapper(loginController));
 
-router.post("/logout", asyncWrapper(logoutController));
+router.get("/logout", authMiddleware, asyncWrapper(logoutController));
 
 router.get("/current", authMiddleware, asyncWrapper(currentController));
 
