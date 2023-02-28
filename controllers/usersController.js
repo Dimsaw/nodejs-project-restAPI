@@ -1,4 +1,9 @@
-const { signup, login, logout } = require("../models/users");
+const {
+  signup,
+  login,
+  logout,
+  changeSubscription,
+} = require("../models/users");
 
 const signupController = async (req, res, next) => {
   const { email, password } = req.body;
@@ -22,8 +27,8 @@ const loginController = async (req, res) => {
 
 const logoutController = async (req, res, next) => {
   const { _id } = req.user;
-  const searchUserById = await logout(_id);
-  res.json({ status: "success", searchUserById });
+  await logout(_id);
+  res.status(204).json({ status: "No Content" });
 };
 
 const currentController = async (req, res, next) => {
@@ -31,9 +36,16 @@ const currentController = async (req, res, next) => {
   res.json({ status: "success", email });
 };
 
+const changeSubscriptionController = async (req, res, next) => {
+  const { _id } = req.user;
+  await changeSubscription(_id, req.body);
+  res.json({ status: "success" });
+};
+
 module.exports = {
   signupController,
   loginController,
   logoutController,
   currentController,
+  changeSubscriptionController,
 };
