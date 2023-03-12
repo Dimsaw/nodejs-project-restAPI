@@ -8,6 +8,8 @@ const {
 } = require("../../middlewares/usersMiddleware");
 const { authMiddleware } = require("../../middlewares/authMiddleware");
 
+const { upload } = require("../../middlewares/upload");
+
 const { asyncWrapper } = require("../../helpers/apiHelpers");
 
 const {
@@ -17,6 +19,8 @@ const {
   currentController,
   changeSubscriptionController,
 } = require("../../controllers/usersController");
+
+const { updateAvatar } = require("../../controllers/avatarController");
 
 router.post("/signup", loginValidation, asyncWrapper(signupController));
 
@@ -31,6 +35,13 @@ router.patch(
   authMiddleware,
   validateSubscriptionUpdate,
   asyncWrapper(changeSubscriptionController)
+);
+
+router.patch(
+  "/avatars",
+  authMiddleware,
+  upload.single("avatar"),
+  asyncWrapper(updateAvatar)
 );
 
 module.exports = router;
