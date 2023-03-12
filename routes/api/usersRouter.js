@@ -33,4 +33,11 @@ router.patch(
   asyncWrapper(changeSubscriptionController)
 );
 
+router.patch(
+  "/avatar",
+  authMiddleware,
+  validateSubscriptionUpdate,
+  asyncWrapper(changeSubscriptionController)
+);
+
 module.exports = router;

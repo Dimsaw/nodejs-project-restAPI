@@ -7,12 +7,15 @@ const {
   ThisEmailRegistrated,
 } = require("../helpers/errors");
 
-const signup = async (email, password) => {
+const signup = async (email, password, avatarURL) => {
   const checkEmail = await User.findOne({ email });
   if (checkEmail) {
     throw new ThisEmailRegistrated("Email in use");
   }
-  const user = new User({ email, password });
+
+  // const hashPassword = await bcrypt.hash(password, 10);
+
+  const user = new User({ email, password, avatarURL });
   await user.save();
 };
 

@@ -1,17 +1,9 @@
 const express = require("express");
+const path = require("path");
 
-const router = express.Router();
+const router = new express.Router();
 
-// const {
-//   loginValidation,
-//   validateSubscriptionUpdate,
-// } = require("../../middlewares/usersMiddleware");
-const { authMiddleware } = require("../../middlewares/authMiddleware");
+const FILE_DIR = path.resolve("./public/avatar");
 
-const { asyncWrapper } = require("../../helpers/apiHelpers");
-
-const { avatarController } = require("../../controllers/usersController");
-
-router.get("/avatar", authMiddleware, asyncWrapper(avatarController));
-
+router.use("/", express.static(FILE_DIR));
 module.exports = router;

@@ -1,3 +1,5 @@
+const gravatar = require("gravatar");
+
 const {
   signup,
   login,
@@ -7,13 +9,15 @@ const {
 
 const signupController = async (req, res, next) => {
   const { email, password } = req.body;
-  await signup(email, password);
+  const avatarURL = gravatar.url(email);
+  await signup(email, password, avatarURL);
 
   res.status(201).json({
     status: "success",
     user: {
       email: email,
       subscription: "starter",
+      avatarURL,
     },
   });
 };
@@ -42,10 +46,17 @@ const changeSubscriptionController = async (req, res, next) => {
   res.json({ status: "success" });
 };
 
+const ccchangeSubscriptionController = async (req, res, next) => {
+  const { _id } = req.user;
+  await changeSubscription(_id, req.body);
+  res.json({ status: "success" });
+};
+
 module.exports = {
   signupController,
   loginController,
   logoutController,
   currentController,
   changeSubscriptionController,
+  ccchangeSubscriptionController,
 };
