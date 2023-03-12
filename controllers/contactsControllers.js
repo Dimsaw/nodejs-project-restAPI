@@ -22,7 +22,6 @@ const getContactsController = async (req, res) => {
 const getContactByIdController = async (req, res, next) => {
   const { id } = req.params;
   const contactById = await getContactById(id);
-  console.log(contactById);
   await checkContactById(contactById);
   res.json({ contactById, message: "success" });
 };

@@ -18,7 +18,7 @@ app.use(express.json());
 
 app.use(express.json());
 
-app.use("/avatar", avatarRouter);
+app.use("/avatars", avatarRouter);
 
 app.use("/api/users", usersRouter);
 

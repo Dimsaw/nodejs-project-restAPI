@@ -13,8 +13,6 @@ const signup = async (email, password, avatarURL) => {
     throw new ThisEmailRegistrated("Email in use");
   }
 
-  // const hashPassword = await bcrypt.hash(password, 10);
-
   const user = new User({ email, password, avatarURL });
   await user.save();
 };
