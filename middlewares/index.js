@@ -1,5 +1,5 @@
 const authMiddleware = require("./authMiddleware");
-const loginValidation = require("./validateSubscriptionUpdate");
+const loginValidation = require("./loginValidation");
 const validateSubscriptionUpdate = require("./validateSubscriptionUpdate");
 const addValidation = require("./addValidation");
 const patchValidation = require("./patchValidation");

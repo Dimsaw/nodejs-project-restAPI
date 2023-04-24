@@ -17,7 +17,7 @@ const {
   deleteContactController,
   putContactController,
   patchContactController,
-} = require("../../controllers/contactsControllers.js");
+} = require("../../controllers/contactsControllers/index");
 
 router.use(authMiddleware);
 
