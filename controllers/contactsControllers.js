@@ -5,7 +5,7 @@ const {
   addContact,
   updateContact,
   patchContact,
-} = require("../models/contacts");
+} = require("../models/contacts/index");
 
 const { checkContactById } = require("../helpers/checkById");
 

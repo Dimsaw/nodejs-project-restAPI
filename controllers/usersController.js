@@ -3,7 +3,7 @@ const {
   login,
   logout,
   changeSubscription,
-} = require("../models/users");
+} = require("../models/users/users");
 
 const signupController = async (req, res, next) => {
   const { email, password } = req.body;

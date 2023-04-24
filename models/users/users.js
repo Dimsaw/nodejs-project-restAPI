@@ -1,11 +1,11 @@
-const { User } = require("../db/usersModel");
+const { User } = require("../../db/usersModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const {
   NotAuthorizedError,
   ThisEmailRegistrated,
-} = require("../helpers/errors");
+} = require("../../helpers/errors");
 
 const signup = async (email, password) => {
   const checkEmail = await User.findOne({ email });
