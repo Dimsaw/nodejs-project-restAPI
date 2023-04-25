@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs/promises");
-const { jimpEditor } = require("../helpers/jimpEditor");
-const { User } = require("../db/usersModel");
+const { jimpEditor } = require("../../helpers/jimpEditor");
+const { User } = require("../../db/usersModel");
 
 const avatarsDir = path.resolve("./public/avatars");
 
@@ -25,6 +25,4 @@ const updateAvatar = async (req, res, next) => {
   });
 };
 
-module.exports = {
-  updateAvatar,
-};
+module.exports = updateAvatar;
