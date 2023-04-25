@@ -1,5 +1,4 @@
 const Joi = require("joi");
-// const { ValidationError } = "../helpers/errors.js";
 
 const loginValidation = (req, res, next) => {
   const schema = Joi.object({
@@ -11,7 +10,6 @@ const loginValidation = (req, res, next) => {
       .required(),
     password: Joi.string().min(3).max(30).required(),
   });
-
   const validationResult = schema.validate(req.body);
   if (validationResult.error) {
     return res.status(400).json({ message: "missing required name field" });
@@ -19,19 +17,4 @@ const loginValidation = (req, res, next) => {
   next();
 };
 
-const validateSubscriptionUpdate = (req, res, next) => {
-  const schema = Joi.object({
-    subscription: Joi.string().valid("starter", "pro", "business").required(),
-  });
-
-  const validationResult = schema.validate(req.body);
-  if (validationResult.error) {
-    return res.status(400).json({ message: "missing required name field" });
-  }
-  next();
-};
-
-module.exports = {
-  loginValidation,
-  validateSubscriptionUpdate,
-};
+module.exports = loginValidation;

@@ -5,8 +5,8 @@ const router = express.Router();
 const {
   loginValidation,
   validateSubscriptionUpdate,
-} = require("../../middlewares/usersMiddleware");
-const { authMiddleware } = require("../../middlewares/authMiddleware");
+  authMiddleware,
+} = require("../../middlewares");
 
 const { upload } = require("../../middlewares/upload");
 

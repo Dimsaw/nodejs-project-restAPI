@@ -5,9 +5,8 @@ const router = express.Router();
 const {
   addValidation,
   patchValidation,
-} = require("../../middlewares/validationMiddleware");
-
-const { authMiddleware } = require("../../middlewares/authMiddleware");
+  authMiddleware,
+} = require("../../middlewares");
 
 const { asyncWrapper } = require("../../helpers/apiHelpers");
 
