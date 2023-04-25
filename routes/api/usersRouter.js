@@ -18,9 +18,9 @@ const {
   logoutController,
   currentController,
   changeSubscriptionController,
-} = require("../../controllers/usersController");
+} = require("../../controllers/usersControllers/index");
 
-const { updateAvatar } = require("../../controllers/avatarController");
+const { updateAvatar } = require("../../controllers/avatarController/index");
 
 router.post("/signup", loginValidation, asyncWrapper(signupController));
 
