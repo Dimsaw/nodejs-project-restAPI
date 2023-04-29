@@ -18,6 +18,7 @@ const {
   logoutController,
   currentController,
   changeSubscriptionController,
+  verifyController,
 } = require("../../controllers/usersControllers/index");
 
 const { updateAvatar } = require("../../controllers/avatarController/index");
@@ -43,5 +44,7 @@ router.patch(
   upload.single("avatar"),
   asyncWrapper(updateAvatar)
 );
+
+router.get("/verify/:verificationCode", verifyController);
 
 module.exports = router;

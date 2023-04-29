@@ -1,4 +1,11 @@
 const { User } = require("../../db/usersModel");
+const shortid = require("shortid");
+const sgMail = require("@sendgrid/mail");
+const { sendEmail } = require("../../helpers/index");
+
+require("dotenv").config();
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const { ThisEmailRegistrated } = require("../../helpers/errors");
 
@@ -7,8 +14,11 @@ const signup = async (email, password) => {
   if (checkEmail) {
     throw new ThisEmailRegistrated("Email in use");
   }
-  const user = new User({ email, password });
+  const verificationToken = shortid.generate();
+  const user = new User({ email, password, verificationToken });
   await user.save();
+
+  sendEmail(email, verificationToken);
 };
 
 module.exports = signup;
