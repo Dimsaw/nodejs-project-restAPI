@@ -6,6 +6,4 @@ const checkContactById = (contactById) => {
   }
 };
 
-module.exports = {
-  checkContactById,
-};
+module.exports = checkContactById;

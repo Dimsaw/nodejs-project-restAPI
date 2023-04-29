@@ -10,7 +10,7 @@ const {
 
 const { upload } = require("../../middlewares/upload");
 
-const { asyncWrapper } = require("../../helpers/apiHelpers");
+const { asyncWrapper } = require("../../helpers/index");
 
 const {
   signupController,

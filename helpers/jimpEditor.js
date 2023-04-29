@@ -6,6 +6,4 @@ const jimpEditor = async (path, a, b) => {
   await image.writeAsync(path);
 };
 
-module.exports = {
-  jimpEditor,
-};
+module.exports = jimpEditor;

@@ -8,7 +8,7 @@ const avatarRouter = require("./routes/api/avatarsRouter");
 
 const app = express();
 
-const { errorHandler } = require("./helpers/apiHelpers");
+const { errorHandler } = require("./helpers/errorHandler");
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
