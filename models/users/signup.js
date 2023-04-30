@@ -14,11 +14,12 @@ const signup = async (email, password) => {
   if (checkEmail) {
     throw new ThisEmailRegistrated("Email in use");
   }
+
   const verificationToken = shortid.generate();
   const user = new User({ email, password, verificationToken });
   await user.save();
 
-  sendEmail(email, verificationToken);
+  await sendEmail(email, verificationToken);
 };
 
 module.exports = signup;
