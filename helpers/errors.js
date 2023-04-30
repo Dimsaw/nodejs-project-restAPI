@@ -6,6 +6,14 @@ class checkError extends Error {
   }
 }
 
+class WrongVerification extends checkError {
+  constructor(message) {
+    super(message);
+
+    this.status = 400;
+  }
+}
+
 class ValidationError extends checkError {
   constructor(message) {
     super(message);
@@ -39,6 +47,7 @@ class ThisEmailRegistrated extends checkError {
 }
 
 module.exports = {
+  WrongVerification,
   ValidationError,
   WrongsParametersError,
   NotAuthorizedError,

@@ -10,7 +10,7 @@ const {
 
 const { upload } = require("../../middlewares/upload");
 
-const { asyncWrapper } = require("../../helpers/apiHelpers");
+const { asyncWrapper } = require("../../helpers/index");
 
 const {
   signupController,
@@ -18,6 +18,7 @@ const {
   logoutController,
   currentController,
   changeSubscriptionController,
+  verifyController,
 } = require("../../controllers/usersControllers/index");
 
 const { updateAvatar } = require("../../controllers/avatarController/index");
@@ -43,5 +44,7 @@ router.patch(
   upload.single("avatar"),
   asyncWrapper(updateAvatar)
 );
+
+router.get("/verify/:verificationCode", verifyController);
 
 module.exports = router;

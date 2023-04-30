@@ -8,7 +8,7 @@ const {
   authMiddleware,
 } = require("../../middlewares");
 
-const { asyncWrapper } = require("../../helpers/apiHelpers");
+const { asyncWrapper } = require("../../helpers/index");
 
 const {
   getContactsController,
