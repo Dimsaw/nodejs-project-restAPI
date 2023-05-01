@@ -19,9 +19,12 @@ const {
   currentController,
   changeSubscriptionController,
   verifyController,
+  secondVerifyController,
 } = require("../../controllers/usersControllers/index");
 
 const { updateAvatar } = require("../../controllers/avatarController/index");
+
+router.get("/verify/:verificationToken", asyncWrapper(verifyController));
 
 router.post("/signup", loginValidation, asyncWrapper(signupController));
 
@@ -45,6 +48,6 @@ router.patch(
   asyncWrapper(updateAvatar)
 );
 
-router.get("/verify/:verificationCode", verifyController);
+router.post("/verify", asyncWrapper(secondVerifyController));
 
 module.exports = router;
